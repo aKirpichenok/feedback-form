@@ -30,12 +30,6 @@ body, p, input, select, textarea, button {
       width: 320px;
       margin: 0 auto;
     }
-    
-    /* .segment {
-      padding: $ruler*2 0;
-      text-align: center;
-    } */
-    
     button, input {
       border: 0;
       outline: 0;

@@ -27,6 +27,7 @@ const useInput = (initialValue, validations) => {
         onChange,
         onBlur,
         clear,
+        setValue,
         ...valid
     }
 }
