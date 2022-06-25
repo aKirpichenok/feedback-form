@@ -16,11 +16,17 @@ const useInput = (initialValue, validations) => {
         setDirty(true)
     }
 
+    const clear = () => {
+        setValue('')
+        setDirty(false)
+    }
+
     return {
         value,
         dirty,
         onChange,
         onBlur,
+        clear,
         ...valid
     }
 }

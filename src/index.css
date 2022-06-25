@@ -66,6 +66,7 @@ body, p, input, select, textarea, button {
       }
     
     button {
+      width: 310px;
       color:#61677C;
       font-weight: bold;
       box-shadow: -5px -5px 20px #FFF,  5px 5px 20px #BABECC;
@@ -83,27 +84,20 @@ body, p, input, select, textarea, button {
       }
 
       textarea {
+        resize: none;
         width: 310px;
-        height: 100px;
-      }
-      
-      /* .icon {
-        margin-right: $ruler/2;
-      } */
-      
-      
-      /* &.red {
+        height: 200px;
+      } 
+       .red {
         margin-top: 20px;
         display: block;
         width: 100%;
-        
+       }
 
-        &.red:enabled{
-          color:$color-green;
+        .red:enabled{
+          color:green;
         }
-      }
-      &.red:disabled {
-          color:$color-red;
+      
+      .red:disabled {
+          color:red;
         }
-    }
-} */

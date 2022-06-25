@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import useInput from "./hooks/useInput";
 
@@ -7,39 +8,53 @@ const App = () => {
   const phone = useInput('+7', { phone: 'phone', isEmpty: true, })
   const date = useInput('', { date: 'date', isEmpty: true })
   const message = useInput('', { isEmpty: true, minLengthMessage: 10, maxLengthMessage: 300 })
+  const [fetching, setfetching] = useState(false)
+  const [success, showSuccess] = useState(false)
 
 
   const submit = (e) => {
     e.preventDefault()
-    console.log(name.value, mail.value, phone.value, date.value, message)
+    setfetching(true)
+    axios.post('http://localhost:5000/send-form', {
+      name: name.value,
+      mail: mail.value,
+      phone: phone.value,
+      date: date.value,
+      message: message.value,
+    }).then(res => {
+      setfetching(false)
+      showSuccess(true)
+      setTimeout(() => showSuccess(false), 1500)
+      name.clear(); mail.clear(); phone.clear(); date.clear(); message.clear()
+    })
   }
-
 
   return (
     <div>
       <form onSubmit={submit} noValidate>
         <label htmlFor="name">Name:</label>
-        <input type="text" value={name.value} onChange={e => name.onChange(e)} onBlur={e => name.onBlur(e)} name="name" />
-        {name.inputValid ? <p>OK</p> : <p>NOT OK</p>}
+        <input type="text" value={name.value} onChange={e => name.onChange(e)} onBlur={e => name.onBlur(e)} name="name" placeholder="ANDREY KIRPICHONAK" />
+        {(name.dirty && !name.inputValid) && <p>Wrong name</p>}
 
         <label htmlFor="mail">Mail:</label>
-        <input type="email" value={mail.value} onChange={e => mail.onChange(e)} onBlur={e => mail.onBlur(e)} name="mail" />
-        {mail.inputValid ? <p>OK</p> : <p>NOT OK</p>}
+        <input type="email" value={mail.value} onChange={e => mail.onChange(e)} onBlur={e => mail.onBlur(e)} name="mail" placeholder="a.kirpichenok@gmail.com" />
+        {(mail.dirty && !mail.inputValid) && <p>Wrong mail</p>}
 
         <label htmlFor="phone">Phone:</label>
-        <input type="tel" value={phone.value} onChange={e => phone.onChange(e)} onBlur={e => phone.onBlur(e)} name="phone" />
-        {phone.inputValid ? <p>OK</p> : <p>NOT OK </p>}
+        <input type="tel" value={phone.value} onChange={e => phone.onChange(e)} onBlur={e => phone.onBlur(e)} name="phone" placeholder="+7 923332123" />
+        {(phone.dirty && !phone.inputValid) && <p>Wrong phone</p>}
 
         <label htmlFor="date">Date:</label>
         <input type="date" value={date.value} onChange={e => date.onChange(e)} onBlur={e => date.onBlur(e)} name="date" />
-        {date.inputValid ? <p>OK</p> : <p>NOT OK</p>}
+        {(date.dirty && !date.inputValid) && <p>Wrong date</p>}
 
         <label htmlFor="message">Message:</label>
-        <textarea placeholder="Text" value={message.value} onChange={e => message.onChange(e)} onBlur={e => message.onBlur(e)} name="message" />
-        {message.inputValid ? <p>OK</p> : <p>NOT OK</p>}
+        <textarea placeholder="some message" value={message.value} onChange={e => message.onChange(e)} onBlur={e => message.onBlur(e)} name="message" />
+        {(message.dirty && !message.inputValid) && <p>Wrong message</p>}
 
-        <button type="submit">Send</button>
+        <button type="submit" className="red" disabled={!name.inputValid || !mail.inputValid || !phone.inputValid || !date.inputValid || !message.inputValid || fetching}>Send</button>
       </form>
+      {success && <h1>Form sent</h1>}
     </div>
   )
 }
