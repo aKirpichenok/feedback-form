@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { validationDescription } from "leaflet"
+import { mailValidConstant, phoneMaskConstant } from "../constants"
 
-const useValidation = (value, validations) => {
+const useValidation = (value: string, validations: validationDescription) => {
     const [isEmpty, setIsEmpty] = useState(true)
     const [minLength, setMinLength] = useState(false)
     const [maxLength, setMaxLength] = useState(false)
@@ -11,7 +13,7 @@ const useValidation = (value, validations) => {
     const [inputValid, setInputValid] = useState(false)
     const [dateValid, setDateValid] = useState(false)
 
-    const countSpaces = (str) => {
+    const countSpaces = (str: string) => {
         let a = 0
         for (let i = 0; i < str.length; i++) {
             if (str[i] === ' ') {
@@ -21,31 +23,28 @@ const useValidation = (value, validations) => {
         return a
     }
 
-    const phoneMask = (phone) => {
-        // return phone[0] === '+' && phone[1] === '7' && phone.length
-        const re = /^((\+7|7|8)+(\s|-|\(|)+([0-9]){10})$/;
-        return re.test(phone);
+    const phoneMask = (phone: string) => {
+        return phoneMaskConstant.test(phone);
     }
 
-    const validMail = (mail) => {
-        const re = /^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i;
-        return re.test(mail)
+    const validMail = (mail: string) => {
+        return mailValidConstant.test(mail)
     }
 
-    const validDate = (date) => {
+    const validDate = (date: string) => {
         const dateArr = date.split('-')
-        const [year, ,] = dateArr
-        return year > 1950 && year < 2022
+        const [year, ,]: string[] = dateArr
+        return +year > 1950 && +year < 2022
     }
 
     useEffect(() => {
         for (const validation in validations) {
             switch (validation) {
                 case 'minLength':
-                    value.split(' ').some(item => item.length < validations[validation]) ? setMinLength(true) : setMinLength(false)
+                    value.split(' ').some((item: string) => item.length < validations[validation]!) ? setMinLength(true) : setMinLength(false)
                     break;
                 case 'maxLength':
-                    value.split(' ').some(item => item.length > validations[validation]) ? setMaxLength(true) : setMaxLength(false)
+                    value.split(' ').some((item: string) => item.length > validations[validation]!) ? setMaxLength(true) : setMaxLength(false)
                     break;
                 case 'isEmpty':
                     value ? setIsEmpty(false) : setIsEmpty(true)
@@ -66,17 +65,17 @@ const useValidation = (value, validations) => {
                     validDate(value) ? setDateValid(false) : setDateValid(true)
                     break;
                 case 'minLengthMessage':
-                    value.trim().length < validations[validation] ? setMinLength(true) : setMinLength(false)
+                    value.trim().length < validations[validation]! ? setMinLength(true) : setMinLength(false)
                     break;
                 case 'maxLengthMessage':
-                    value.trim().length > validations[validation] ? setMaxLength(true) : setMaxLength(false)
+                    value.trim().length > validations[validation]! ? setMaxLength(true) : setMaxLength(false)
                     break;
                 default:
                     break;
             }
         }
 
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 
     useEffect(() => {

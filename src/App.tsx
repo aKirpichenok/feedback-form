@@ -1,14 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import useInput from "./hooks/useInput";
-
-import PhoneInput from 'react-phone-number-input/input'
-
 
 const App = () => {
   const name = useInput('', { type: 'name', isEmpty: true, minLength: 3, maxLength: 30, spaces: 1, words: 2 })
   const mail = useInput('', { mail: 'mail', minLength: 7, isEmpty: true })
-  const phone = useInput('', { phone: 'phone', isEmpty: true, })
+  const phone = useInput('+7', { phone: 'phone', isEmpty: true, })
   const date = useInput('', { date: 'date', isEmpty: true })
   const message = useInput('', { isEmpty: true, minLengthMessage: 10, maxLengthMessage: 300 })
   const [fetching, setfetching] = useState(false)
@@ -18,7 +15,7 @@ const App = () => {
   })
 
 
-  const submit = (e) => {
+  const submit = (e: SyntheticEvent) => {
     e.preventDefault()
     setfetching(true)
     axios.post('http://localhost:5000/send-form', {
@@ -58,12 +55,12 @@ const App = () => {
         {(mail.dirty && !mail.inputValid) && <p>Wrong mail</p>}
 
         <label htmlFor="phone">Phone:</label>
-        <PhoneInput country="RU" international withCountryCallingCode value={phone.value} onChange={phone.setValue} onBlur={e => phone.onBlur(e)} name="phone" placeholder="+7 923332123" />
+        <input value={phone.value} onChange={e => phone.onChange(e)} onBlur={(e: any) => phone.onBlur(e)} name="phone" placeholder="+7 923332123" />
         {(phone.dirty && !phone.inputValid) && <p>Wrong phone</p>}
 
         <label htmlFor="date">Date:</label>
         <input type="date" value={date.value} onChange={e => date.onChange(e)} onBlur={e => date.onBlur(e)} name="date" />
-        {(date.dirty && !date.inputValid) && <p>Wrong date</p>}
+        {(date.dirty && !date.inputValid) && <p>Wrong date</p>} 
 
         <label htmlFor="message">Message:</label>
         <textarea placeholder="input a x12 for succes result" value={message.value} onChange={e => message.onChange(e)} onBlur={e => message.onBlur(e)} name="message" />
