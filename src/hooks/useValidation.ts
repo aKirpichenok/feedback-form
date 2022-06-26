@@ -34,7 +34,7 @@ const useValidation = (value: string, validations: validationDescription) => {
     const validDate = (date: string) => {
         const dateArr = date.split('-')
         const [year, ,]: string[] = dateArr
-        return +year > 1950 && +year < 2022
+        return +year > 1950 && +year < 2023
     }
 
     useEffect(() => {

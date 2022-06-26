@@ -1,3 +1,11 @@
+$ruler: 16px;
+$color-red: #AE1100;
+$color-green: green ;
+$color-shadow: #BABECC;
+$color-white: #FFF;
+$ball1-shadow: #f8b334;
+$ball2-shadow: #97bf0d;
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,7 +23,7 @@ body {
   body, p, input, select, textarea, button {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: -0.2px;
-    font-size: 16px;
+    font-size: $ruler;
   }
   
   p {
@@ -24,7 +32,7 @@ body {
     font-size: 13px;
     text-align: center;
     width: 320px;
-    color: red;
+    color: $color-red;
   }
   
   .wrong-message{
@@ -36,15 +44,14 @@ body {
         padding: 6px;
         width: 320px;
         margin: 0 auto;
-      }
       button, input {
         border: 0;
         outline: 0;
-        font-size: 16px;
+        font-size: $ruler;
         border-radius: 16px*20;
         padding: 14px;
         background-color:#EBECF0;
-        text-shadow: 1px 1px 0 #FFF;
+        text-shadow: 1px 1px 0 $color-white;
       }
       
       label {
@@ -54,36 +61,37 @@ body {
       
       input {
         margin-bottom: 20px;
-        margin-right: 16px/2;
-        box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+        margin-right: $ruler/2;
+        box-shadow:  inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
         width: 100%;
         box-sizing: border-box;
         transition: all 0.2s ease-in-out;
         appearance: none;
         -webkit-appearance: none;
-      }
-        input:focus {
-          box-shadow:  inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+        &:focus {
+          box-shadow:  inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
         }
+    }
       
       button {
         font-size: 24px;
         width: 310px;
         color:#61677C;
         font-weight: bold;
-        box-shadow: -5px -5px 20px #FFF,  5px 5px 20px #BABECC;
+        box-shadow: -5px -5px 20px $color-white,  5px 5px 20px $color-shadow;
         transition: all 0.2s ease-in-out;
         cursor: pointer;
         font-weight: 600;
-      }
+
         
-        button:hover {
-          box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+        &:hover {
+          box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
         }
         
-        button:active {
-          box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+        &:active {
+          box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
         }
+    }
   
         textarea {
           resize: none;
@@ -94,101 +102,138 @@ body {
           margin-top: 20px;
           display: block;
           width: 100%;
-         }
   
-          .red:enabled{
-            color:green;
+          &:enabled{
+            color:$color-green;
           }
         
-        .red:disabled {
-            color:red;
+        &:disabled {
+            color:$color-red;
           }
-        .success {
-          margin-top: -10px;
-          text-align: center;
-          color: green;
         }
-        .error {
-          margin-top: -10px;
-          text-align: center;
-          color: red;
+    }
+    .loader  {
+        position: absolute;
+        margin-left: 48%;
+        margin-top: 230px;
+        animation: rotate 1s infinite;  
+        height: 50px;
+        width: 50px;
+      
+        &:before,
+        &:after {   
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: 20px;  
+        width: 20px;
+      }
+      &:before {
+        animation: ball1 1s infinite;  
+        background-color: #cb2025;
+        box-shadow: 30px 0 0 $ball1-shadow;
+        margin-bottom: 10px;
+      }
+      &:after {
+        animation: ball2 1s infinite; 
+        background-color: #00a096;
+        box-shadow: 30px 0 0 $ball2-shadow;
+      }
+  }
+      
+      @keyframes rotate {
+        0% { 
+          -webkit-transform: rotate(0deg) scale(0.8); 
+          -moz-transform: rotate(0deg) scale(0.8);
         }
-  
-  
-  
-  
-        .loader  {
-          position: absolute;
-          margin-left: 750px;
-          margin-top: 250px;
-          animation: rotate 1s infinite;  
-          height: 50px;
-          width: 50px;
+        50% { 
+          -webkit-transform: rotate(360deg) scale(1.2); 
+          -moz-transform: rotate(360deg) scale(1.2);
         }
-        
-        .loader:before,
-        .loader:after {   
-          border-radius: 50%;
-          content: '';
-          display: block;
-          height: 20px;  
-          width: 20px;
+        100% { 
+          -webkit-transform: rotate(720deg) scale(0.8); 
+          -moz-transform: rotate(720deg) scale(0.8);
         }
-        .loader:before {
-          animation: ball1 1s infinite;  
-          background-color: #cb2025;
-          box-shadow: 30px 0 0 #f8b334;
+      }
+      
+      @keyframes ball1 {
+        0% {
+          box-shadow: 30px 0 0 $ball1-shadow;
+        }
+        50% {
+          box-shadow: 0 0 0 $ball1-shadow;
+          margin-bottom: 0;
+          -webkit-transform: translate(15px,15px);
+          -moz-transform: translate(15px, 15px);
+        }
+        100% {
+          box-shadow: 30px 0 0 $ball1-shadow;
           margin-bottom: 10px;
         }
-        .loader:after {
-          animation: ball2 1s infinite; 
-          background-color: #00a096;
-          box-shadow: 30px 0 0 #97bf0d;
+      }
+      
+      @keyframes ball2 {
+        0% {
+          box-shadow: 30px 0 0 $ball2-shadow;
         }
-        
-        @keyframes rotate {
-          0% { 
-            -webkit-transform: rotate(0deg) scale(0.8); 
-            -moz-transform: rotate(0deg) scale(0.8);
-          }
-          50% { 
-            -webkit-transform: rotate(360deg) scale(1.2); 
-            -moz-transform: rotate(360deg) scale(1.2);
-          }
-          100% { 
-            -webkit-transform: rotate(720deg) scale(0.8); 
-            -moz-transform: rotate(720deg) scale(0.8);
-          }
+        50% {
+          box-shadow: 0 0 0 $ball2-shadow;
+          margin-top: -20px;
+          -webkit-transform: translate(15px,15px);
+          -moz-transform: translate(15px, 15px);
         }
-        
-        @keyframes ball1 {
-          0% {
-            box-shadow: 30px 0 0 #f8b334;
-          }
-          50% {
-            box-shadow: 0 0 0 #f8b334;
-            margin-bottom: 0;
-            -webkit-transform: translate(15px,15px);
-            -moz-transform: translate(15px, 15px);
-          }
-          100% {
-            box-shadow: 30px 0 0 #f8b334;
-            margin-bottom: 10px;
-          }
+        100% {
+          box-shadow: 30px 0 0 $ball2-shadow;
+          margin-top: 0;
         }
-        
-        @keyframes ball2 {
-          0% {
-            box-shadow: 30px 0 0 #97bf0d;
-          }
-          50% {
-            box-shadow: 0 0 0 #97bf0d;
-            margin-top: -20px;
-            -webkit-transform: translate(15px,15px);
-            -moz-transform: translate(15px, 15px);
-          }
-          100% {
-            box-shadow: 30px 0 0 #97bf0d;
-            margin-top: 0;
-          }
-        }
+      }
+    .success {
+        margin-top: -10px;
+        text-align: center;
+        color: $color-green;
+      }
+      .error {
+        margin-top: -10px;
+        text-align: center;
+        color: $color-red;
+      }
+      #date {
+        position: relative
+      }
+      
+      #date::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: auto;
+        color: transparent;
+        background: transparent
+      }
+      
+      #date::-webkit-inner-spin-button,
+      #date::-webkit-clear-button {
+        z-index: -10
+      }
+      
+      #date::-webkit-input-placeholder {
+        z-index: 99
+      }
+      
+      #date:placeholder {
+        z-index: 99
+      }
+      
+      #date:before {
+        width: 100%;
+        content: attr(placeholder)
+      }
+
+.date-output {
+    color: black;
+    font-size: $ruler;
+    margin-top: -50px;
+    width: 100px;
+}

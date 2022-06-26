@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useValidation from "./useValidation"
 import { validationDescription } from "leaflet"
-import { numbersPhone } from '../constants'
+import { numbersPhone, testName } from '../constants'
 
 
 
@@ -14,8 +14,14 @@ const useInput = (initialValue: string, validations: validationDescription) => {
     const onChange = (e: any) => {
         if(validations.phone) {
           return numbersPhone.includes(e.target.value[e.target.value.length-2]) ? setValue(e.target.value.replace(/[^\d|+]/g,'')) : null
-        } else {
-            validations.type === 'name' ? setValue(e.target.value.toUpperCase()) : setValue(e.target.value)
+        } else if(validations.type === 'name') {
+            if(e.target.value[0] === ' ') return null
+            const name = e.target.value.split(' ')
+            if (name.length < 2) return setValue(name.join(' ').toUpperCase())
+            name.length = 2
+            return testName.test(name.join(' ')) ? setValue(name.join(' ').toUpperCase()) : null
+        }else {
+            setValue(e.target.value)
         }
     }
 
@@ -24,8 +30,13 @@ const useInput = (initialValue: string, validations: validationDescription) => {
     }
 
     const clear = () => {
-        setValue('')
-        setDirty(false)
+        if(validations.phone){
+            setValue('+7')
+            setDirty(false)
+        }else {
+            setValue('')
+            setDirty(false)
+        }
     }
 
     return {

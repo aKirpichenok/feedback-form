@@ -21,7 +21,7 @@ p {
   font-size: 13px;
   text-align: center;
   width: 320px;
-  color: red;
+  color: #AE1100;
 }
 
 .wrong-message {
@@ -34,7 +34,7 @@ form {
   margin: 0 auto;
 }
 
-button, input {
+form button, form input {
   border: 0;
   outline: 0;
   font-size: 16px;
@@ -44,14 +44,14 @@ button, input {
   text-shadow: 1px 1px 0 #FFF;
 }
 
-label {
+form label {
   display: block;
   width: 100%;
 }
 
-input {
+form input {
   margin-bottom: 20px;
-  margin-right: 16px/2;
+  margin-right: 8px;
   -webkit-box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
           box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
   width: 100%;
@@ -64,78 +64,65 @@ input {
   -webkit-appearance: none;
 }
 
-input:focus {
+form input:focus {
   -webkit-box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
           box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
 
-button {
+form button {
   font-size: 24px;
   width: 310px;
   color: #61677C;
   font-weight: bold;
-  -webkit-box-shadow: -5px -5px 20px #FFF,  5px 5px 20px #BABECC;
-          box-shadow: -5px -5px 20px #FFF,  5px 5px 20px #BABECC;
+  -webkit-box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+          box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
 }
 
-button:hover {
+form button:hover {
   -webkit-box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
           box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
 }
 
-button:active {
+form button:active {
   -webkit-box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
           box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
 
-textarea {
+form textarea {
   resize: none;
   width: 310px;
   height: 200px;
 }
 
-.red {
+form .red {
   margin-top: 20px;
   display: block;
   width: 100%;
 }
 
-.red:enabled {
+form .red:enabled {
   color: green;
 }
 
-.red:disabled {
-  color: red;
-}
-
-.success {
-  margin-top: -10px;
-  text-align: center;
-  color: green;
-}
-
-.error {
-  margin-top: -10px;
-  text-align: center;
-  color: red;
+form .red:disabled {
+  color: #AE1100;
 }
 
 .loader {
   position: absolute;
-  margin-left: 750px;
-  margin-top: 250px;
+  margin-left: 48%;
+  margin-top: 230px;
   -webkit-animation: rotate 1s infinite;
           animation: rotate 1s infinite;
   height: 50px;
   width: 50px;
 }
 
-.loader:before,
-.loader:after {
+.loader:before, .loader:after {
   border-radius: 50%;
   content: '';
   display: block;
@@ -264,5 +251,58 @@ textarea {
             box-shadow: 30px 0 0 #97bf0d;
     margin-top: 0;
   }
+}
+
+.success {
+  margin-top: -10px;
+  text-align: center;
+  color: green;
+}
+
+.error {
+  margin-top: -10px;
+  text-align: center;
+  color: #AE1100;
+}
+
+#date {
+  position: relative;
+}
+
+#date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+#date::-webkit-inner-spin-button,
+#date::-webkit-clear-button {
+  z-index: -10;
+}
+
+#date::-webkit-input-placeholder {
+  z-index: 99;
+}
+
+#date:placeholder {
+  z-index: 99;
+}
+
+#date:before {
+  width: 100%;
+  content: attr(placeholder);
+}
+
+.date-output {
+  color: black;
+  font-size: 16px;
+  margin-top: -50px;
+  width: 100px;
 }
 /*# sourceMappingURL=main.css.map */
