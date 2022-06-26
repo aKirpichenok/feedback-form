@@ -8,8 +8,8 @@ const App = () => {
   const phone = useInput('+7', { phone: 'phone', isEmpty: true, })
   const date = useInput('', { date: 'date', isEmpty: true })
   const message = useInput('', { isEmpty: true, minLengthMessage: 10, maxLengthMessage: 300 })
-  const [fetching, setfetching] = useState(false)
-  const [result, showResult] = useState({
+  const [fetching, setfetching] = useState<boolean>(false)
+  const [result, showResult] = useState<{status: string, message: string}>({
     status: 'pending',
     message: ''
   })
@@ -43,7 +43,9 @@ const App = () => {
   return (
     <div>
       {fetching && <div className="loader"></div>}
+
       <form onSubmit={submit} noValidate>
+        
         <label htmlFor="name">Name:</label>
         <input type="text" value={name.value} onChange={e => name.onChange(e)} onBlur={e => name.onBlur(e)} name="name" placeholder="ANDREY KIRPICHONAK" />
         {(name.dirty && !name.inputValid) && <p>each word 3-30 characters</p>}

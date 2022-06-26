@@ -3,17 +3,17 @@ import { validationDescription } from "leaflet"
 import { mailValidConstant, phoneMaskConstant } from "../constants"
 
 const useValidation = (value: string, validations: validationDescription) => {
-    const [isEmpty, setIsEmpty] = useState(true)
-    const [minLength, setMinLength] = useState(false)
-    const [maxLength, setMaxLength] = useState(false)
-    const [wordsCount, setWordsCount] = useState(false)
-    const [spacesCount, setSpacesCount] = useState(false)
-    const [mailValid, setmailValid] = useState(false)
-    const [phoneValid, setPhoneValid] = useState(false)
-    const [inputValid, setInputValid] = useState(false)
-    const [dateValid, setDateValid] = useState(false)
+    const [isEmpty, setIsEmpty] = useState<boolean>(true)
+    const [minLength, setMinLength] = useState<boolean>(false)
+    const [maxLength, setMaxLength] = useState<boolean>(false)
+    const [wordsCount, setWordsCount] = useState<boolean>(false)
+    const [spacesCount, setSpacesCount] = useState<boolean>(false)
+    const [mailValid, setmailValid] = useState<boolean>(false)
+    const [phoneValid, setPhoneValid] = useState<boolean>(false)
+    const [inputValid, setInputValid] = useState<boolean>(false)
+    const [dateValid, setDateValid] = useState<boolean>(false)
 
-    const countSpaces = (str: string) => {
+    const countSpaces = (str: string): number => {
         let a = 0
         for (let i = 0; i < str.length; i++) {
             if (str[i] === ' ') {
@@ -23,15 +23,15 @@ const useValidation = (value: string, validations: validationDescription) => {
         return a
     }
 
-    const phoneMask = (phone: string) => {
+    const phoneMask = (phone: string): boolean => {
         return phoneMaskConstant.test(phone);
     }
 
-    const validMail = (mail: string) => {
+    const validMail = (mail: string): boolean => {
         return mailValidConstant.test(mail)
     }
 
-    const validDate = (date: string) => {
+    const validDate = (date: string): boolean => {
         const dateArr = date.split('-')
         const [year, ,]: string[] = dateArr
         return +year > 1950 && +year < 2023

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { SyntheticEvent, useState } from "react"
 import useValidation from "./useValidation"
 import { validationDescription } from "leaflet"
 import { numbersPhone, testName } from '../constants'
@@ -6,8 +6,8 @@ import { numbersPhone, testName } from '../constants'
 
 
 const useInput = (initialValue: string, validations: validationDescription) => {
-    const [value, setValue] = useState(initialValue)
-    const [dirty, setDirty] = useState(false)
+    const [value, setValue] = useState<string>(initialValue) 
+    const [dirty, setDirty] = useState<boolean>(false)
     const valid = useValidation(value, validations)
 
 
@@ -25,7 +25,7 @@ const useInput = (initialValue: string, validations: validationDescription) => {
         }
     }
 
-    const onBlur = (e: any) => {
+    const onBlur = (e: SyntheticEvent) => {
         setDirty(true)
     }
 
