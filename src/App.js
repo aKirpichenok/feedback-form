@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import useInput from "./hooks/useInput";
 
-import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input/input'
 
 
@@ -13,7 +12,10 @@ const App = () => {
   const date = useInput('', { date: 'date', isEmpty: true })
   const message = useInput('', { isEmpty: true, minLengthMessage: 10, maxLengthMessage: 300 })
   const [fetching, setfetching] = useState(false)
-  const [success, showSuccess] = useState(false)
+  const [result, showResult] = useState({
+    status: 'pending',
+    message: ''
+  })
 
 
   const submit = (e) => {
@@ -26,16 +28,26 @@ const App = () => {
       date: date.value,
       message: message.value,
     }).then(res => {
-      console.log(res)
-      setfetching(false)
-      showSuccess(true)
-      setTimeout(() => showSuccess(false), 1500)
+      showResult({
+        status: res.data.status,
+        message: res.data.message
+      })
       name.clear(); mail.clear(); phone.clear(); date.clear(); message.clear()
+    }).catch(res => {
+      console.log(res)
+      showResult({
+        status: res.response.data.status,
+        message: res.response.data.message
+      })
+    }).finally(() => {
+      setfetching(false)
+      setTimeout(() => showResult({ status: 'pending', message: '' }), 2500)
     })
   }
 
   return (
     <div>
+      {fetching && <div className="loader"></div>}
       <form onSubmit={submit} noValidate>
         <label htmlFor="name">Name:</label>
         <input type="text" value={name.value} onChange={e => name.onChange(e)} onBlur={e => name.onBlur(e)} name="name" placeholder="ANDREY KIRPICHONAK" />
@@ -45,8 +57,7 @@ const App = () => {
         <input type="email" value={mail.value} onChange={e => mail.onChange(e)} onBlur={e => mail.onBlur(e)} name="mail" placeholder="a.kirpichenok@gmail.com" />
         {(mail.dirty && !mail.inputValid) && <p>Wrong mail</p>}
 
-        <label htmlFor="phone">Phone:
-          <span className="fp fp-rounded  ru"></span></label>
+        <label htmlFor="phone">Phone:</label>
         <PhoneInput country="RU" international withCountryCallingCode value={phone.value} onChange={phone.setValue} onBlur={e => phone.onBlur(e)} name="phone" placeholder="+7 923332123" />
         {(phone.dirty && !phone.inputValid) && <p>Wrong phone</p>}
 
@@ -55,12 +66,13 @@ const App = () => {
         {(date.dirty && !date.inputValid) && <p>Wrong date</p>}
 
         <label htmlFor="message">Message:</label>
-        <textarea placeholder="some message" value={message.value} onChange={e => message.onChange(e)} onBlur={e => message.onBlur(e)} name="message" />
+        <textarea placeholder="input a x12 for succes result" value={message.value} onChange={e => message.onChange(e)} onBlur={e => message.onBlur(e)} name="message" />
         {(message.dirty && !message.inputValid) && <p>Wrong message</p>}
 
         <button type="submit" className="red" disabled={!name.inputValid || !mail.inputValid || !phone.inputValid || !date.inputValid || !message.inputValid || fetching}>Send</button>
       </form>
-      {success && <h1>Form sent</h1>}
+      {result.status === 'success' && <h1 className="success">{result.message}</h1>}
+      {result.status === 'error' && <h1 className="error">{result.message}</h1>}
     </div >
   )
 }

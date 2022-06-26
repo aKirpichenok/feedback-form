@@ -3,19 +3,25 @@ const cors = require('cors')
 
 const PORT = 5000;
 
-let a = null
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
 app.post('/send-form', (req, res) => {
-    a = req.body
-    setTimeout(() => res.status(200).json({
-        status: 'success',
-        message: 'sending was successful',
-        a
-    }), 1500)
+    if (req.body.message === 'aaaaaaaaaaaa') {
+        setTimeout(() => res.status(200).json(({
+            status: 'success',
+            message: 'sending was successful',
+        })
+        ), 1500)
+    } else {
+        setTimeout(() => res.status(400).json({
+            status: 'error',
+            message: 'sending was denied',
+        }
+        ), 1500)
+    }
 })
 
 
