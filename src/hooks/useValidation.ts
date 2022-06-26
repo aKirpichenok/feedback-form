@@ -41,10 +41,14 @@ const useValidation = (value: string, validations: validationDescription) => {
         for (const validation in validations) {
             switch (validation) {
                 case 'minLength':
-                    value.split(' ').some((item: string) => item.length < validations[validation]!) ? setMinLength(true) : setMinLength(false)
+                    value.split(' ')
+                    .some((item: string) => item.length < validations[validation]!) ? 
+                    setMinLength(true) : setMinLength(false)
                     break;
                 case 'maxLength':
-                    value.split(' ').some((item: string) => item.length > validations[validation]!) ? setMaxLength(true) : setMaxLength(false)
+                    value.split(' ')
+                    .some((item: string) => item.length > validations[validation]!) ? 
+                    setMaxLength(true) : setMaxLength(false)
                     break;
                 case 'isEmpty':
                     value ? setIsEmpty(false) : setIsEmpty(true)

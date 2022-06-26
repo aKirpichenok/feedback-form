@@ -13,7 +13,9 @@ const useInput = (initialValue: string, validations: validationDescription) => {
 
     const onChange = (e: any) => {
         if(validations.phone) {
-          return numbersPhone.includes(e.target.value[e.target.value.length-2]) ? setValue(e.target.value.replace(/[^\d|+]/g,'')) : null
+          return numbersPhone.includes(e.target.value[e.target.value.length-2]) ? 
+                 setValue(e.target.value.replace(/[^\d|+]/g,'')) : 
+                 null
         } else if(validations.type === 'name') {
             if(e.target.value[0] === ' ') return null
             const name = e.target.value.split(' ')
