@@ -18,6 +18,7 @@ const App = () => {
   const submit = async(e: SyntheticEvent) => {
     e.preventDefault()
     setfetching(true)
+
     let response = await fetch(URL, {
       method: 'POST',
       headers: {
@@ -31,12 +32,19 @@ const App = () => {
         message: message.value,
       })
     })
+
     let result = await response.json()
+
     showResult({
       status: result.status,
       message: result.message
     })
+
     setfetching(false)
+    if(result.status === 'success') {
+      name.clear(); mail.clear(); phone.clear(); date.clear(); message.clear()
+    }
+
     setTimeout(() => showResult({ status: 'pending', message: '' }), 2500)
   }
 

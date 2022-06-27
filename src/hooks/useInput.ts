@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useState } from "react"
 import useValidation from "./useValidation"
 import { validationDescription } from "leaflet"
 import { numbersPhone, testName } from '../constants'
