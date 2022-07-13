@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/feedback-form/static/css/main.5dcfe15d.css",
+    "main.js": "/feedback-form/static/js/main.2053d5a5.js",
+    "index.html": "/feedback-form/index.html",
+    "main.5dcfe15d.css.map": "/feedback-form/static/css/main.5dcfe15d.css.map",
+    "main.2053d5a5.js.map": "/feedback-form/static/js/main.2053d5a5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5dcfe15d.css",
+    "static/js/main.2053d5a5.js"
+  ]
+}
